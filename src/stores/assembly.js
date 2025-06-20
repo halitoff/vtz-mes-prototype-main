@@ -1,41 +1,61 @@
 import { defineStore } from "pinia";
 import { reactive, ref } from "vue";
 
-/**
- * Store for assembly explorer session and settings
- */
 export const useAssemblyStore = defineStore("assembly", () => {
-  // session data can be expanded when backend is ready
   const session = ref({});
-
-  // view mode: tree | table | cards
   const activeMode = ref("tree");
-
-  // current applied filters
   const filters = reactive({
-    search: "",
-    type: null,
-    quantity: null,
+      left_search: "",
+      right_search: "",
+      is_node: true,
   });
-
-  // current assembly or node id
   const currentAssembly = ref(null);
+  const searchResults = ref([]); // <-- Результаты поиска
+
+  async function performSearch(query) {
+      if (!query.trim()) {
+          searchResults.value = [];
+          return;
+      }
+
+      try {
+          const response = await fetch('http://localhost:8000/hierarchy/search', {
+              method: 'POST',
+              headers: {
+                  'Content-Type': 'application/json',
+                  'Accept': 'application/json'
+              },
+              body: JSON.stringify({ nm: query })
+          });
+
+          if (!response.ok) {
+              throw new Error('Ошибка сети');
+          }
+
+          const data = await response.json();
+          searchResults.value = data;
+      } catch (error) {
+          console.error("Ошибка поиска:", error);
+          searchResults.value = [];
+      }
+  }
 
   function setMode(mode) {
-    activeMode.value = mode;
+      activeMode.value = mode;
   }
 
   function saveSession() {
-    // TODO: implement session save via API/localStorage
-    console.debug("session saved", session.value);
+      console.debug("session saved", session.value);
   }
 
   return {
-    session,
-    activeMode,
-    filters,
-    currentAssembly,
-    setMode,
-    saveSession,
+      session,
+      activeMode,
+      filters,
+      currentAssembly,
+      searchResults,   // <-- Экспортируем
+      performSearch,   // <-- Экспортируем
+      setMode,
+      saveSession,
   };
 });

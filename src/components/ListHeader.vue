@@ -10,11 +10,6 @@ defineProps(["caption"]);
         <slot name="buttons" />
       </div>
 
-      <q-input outlined dense label="Быстрый поиск">
-        <template v-slot:append>
-          <q-icon name="search" />
-        </template>
-      </q-input>
     </q-toolbar>
     <q-separator />
   </div>

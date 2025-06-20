@@ -1,13 +1,14 @@
 <script setup>
 import { useCoreStore } from "@/stores/core";
 const core = useCoreStore();
+
 </script>
 
 <template>
   <q-header bordered class="bg-black">
     <q-toolbar>
       <q-btn icon="menu" flat dense round @click="core.drawer = !core.drawer" />
-      <q-toolbar-title>
+      <q-toolbar-title class="logo">
         ЕИС: <span class="text-weight-thin">Диспетчеризация</span>
       </q-toolbar-title>
       <q-separator vertical spaced inset dark />
@@ -16,3 +17,4 @@ const core = useCoreStore();
     </q-toolbar>
   </q-header>
 </template>
+

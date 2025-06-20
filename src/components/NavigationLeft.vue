@@ -3,8 +3,8 @@ const navigation = [
   { caption: 'Заказы', icon: 'precision_manufacturing', route: '/orders' },
   { caption: 'Цеха', icon: 'factory', route: '/workshops' },
   { caption: 'Склад', icon: 'warehouse', route: '/warehouse' },
-  { caption: 'Накладные', icon: 'description', route: '/invoices' },
-  { caption: 'Assembly', icon: "factory", route: '/assembly'}
+  { caption: 'Сборки изделий', icon: 'description', route: '/invoices' },
+  { caption: 'Всё вместе', icon: "factory", route: '/assembly'}
 ]
 </script>
 
