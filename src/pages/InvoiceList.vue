@@ -213,6 +213,10 @@ function deleteNode(node) {
     });
 }
 
+const displayedNodes = computed(() => {
+    return filteredNodes.value.slice(0, 100);
+});
+
 function goToParent(node) {
     fetchNodeById(node.dse);
 }
@@ -352,7 +356,7 @@ onMounted(async () => {
 
                 <q-inner-loading :showing="loading" />
                 <div class="q-mt-sm">
-                    <q-tree :nodes="filteredNodes" node-key="dse" label-key="nm">
+                    <q-tree :nodes="displayedNodes" node-key="dse" label-key="nm">
                         <!-- Заголовок элемента -->
                         <template v-slot:default-header="{ node }">
                             <div class="row items-center"
